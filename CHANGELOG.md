@@ -4,6 +4,13 @@ Notable changes, grouped by release. Each sprint ends with a release.
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Added
+
+- RH-14: the TA can filter the queue by category.
+- RH-15: a student sees a "You're next" banner and tab title when they reach the front.
+
 ## [1.0.0]
 
 ### Added
