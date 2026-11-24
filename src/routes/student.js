@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   findDoubtRow,
+  isOpen,
   positionOf,
   toDoubt,
 } = require('../queue');
@@ -62,6 +63,22 @@ function studentRoutes(db) {
       ...toDoubt(row),
       position: positionOf(db, row),
     });
+  });
+
+  // RH-08: withdraw a doubt you fixed yourself.
+  router.post('/doubts/:id/withdraw', (req, res) => {
+    const row = findDoubtRow(db, parseId(req.params.id));
+    if (!row) {
+      return res.status(404).json({ error: 'No doubt has that id.' });
+    }
+    if (!sameToken(row.token, req.get('X-Doubt-Token'))) {
+      return res.status(403).json({ error: 'Only the student who raised this doubt can withdraw it.' });
+    }
+    if (!isOpen(row)) {
+      return res.status(409).json({ error: 'This doubt is already closed.' });
+    }
+    db.prepare("UPDATE doubts SET status = 'withdrawn' WHERE id = ?").run(row.id);
+    return res.status(204).end();
   });
 
   return router;

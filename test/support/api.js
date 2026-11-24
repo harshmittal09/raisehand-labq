@@ -42,6 +42,10 @@ function taAction(app, lab, doubt, action) {
   return call(app, 'POST', `/api/doubts/${doubt.id}/${action}`, { headers: lab.ta });
 }
 
+function withdraw(app, doubt, token = doubt.token) {
+  return call(app, 'POST', `/api/doubts/${doubt.id}/withdraw`, { headers: { 'X-Doubt-Token': token } });
+}
+
 module.exports = {
   call,
   openLab,
@@ -49,4 +53,5 @@ module.exports = {
   check,
   queue,
   taAction,
+  withdraw,
 };

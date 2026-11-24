@@ -94,6 +94,11 @@ function renderDoubt(doubt) {
     show('resolved');
     return;
   }
+  if (doubt.status === 'withdrawn') {
+    store.remove(DOUBT_KEY);
+    show('raise');
+    return;
+  }
   $('my-doubt').textContent = `${CATEGORY_NAMES[doubt.category] ?? doubt.category}: ${doubt.description}`;
   const ahead = doubt.position - 1;
   $('position').textContent = String(doubt.position);
@@ -167,6 +172,24 @@ $('raise-form').addEventListener('submit', async (event) => {
 
 $('again').addEventListener('click', () => {
   show('raise');
+});
+
+// RH-08: withdraw a doubt you fixed yourself.
+$('withdraw').addEventListener('click', async () => {
+  const saved = store.get(DOUBT_KEY);
+  if (!saved || !window.confirm('Withdraw your doubt? You will lose your place in the queue.')) {
+    return;
+  }
+  const res = await request(`/api/doubts/${saved.id}/withdraw`, {
+    method: 'POST',
+    headers: { 'X-Doubt-Token': saved.token },
+  });
+  if (!res.ok && res.status !== 409) {
+    $('status-line').textContent = res.data.error ?? 'Could not withdraw. Try again.';
+    return;
+  }
+  store.remove(DOUBT_KEY);
+  await refresh();
 });
 
 refresh();
