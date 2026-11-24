@@ -54,6 +54,10 @@ function openDatabase(file = process.env.DB_PATH || DEFAULT_DB_PATH) {
   }
   const db = new DatabaseSync(file);
   db.exec('PRAGMA foreign_keys = ON;');
+  if (file !== ':memory:') {
+    // Write-ahead logging keeps the queue intact if the server stops mid-write.
+    db.exec('PRAGMA journal_mode = WAL;');
+  }
   db.exec(SCHEMA);
   ensureColumn(db, 'doubts', 'token', 'TEXT');
   return db;

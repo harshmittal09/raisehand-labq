@@ -4,10 +4,11 @@ const { openDatabase } = require('../../src/db');
 
 /**
  * Starts the app on a free port with a fresh in-memory database.
+ * Pass { file } to use a database file instead, for restart tests.
  * Returns the base URL, the database and a close() function for t.after().
  */
-async function startTestServer() {
-  const db = openDatabase(':memory:');
+async function startTestServer({ file = ':memory:' } = {}) {
+  const db = openDatabase(file);
   const server = createApp({ db }).listen(0, '127.0.0.1');
   await once(server, 'listening');
   const { port } = server.address();
