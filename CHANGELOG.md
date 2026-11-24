@@ -4,6 +4,15 @@ Notable changes, grouped by release. Each sprint ends with a release.
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Added
+
+- RH-06: students see their live place in the queue, refreshed every 3 seconds.
+- RH-07: the TA marks one doubt "helping now", and the student sees that the TA is on the way.
+- RH-08: students withdraw their own doubt.
+- RH-09: a Render blueprint and the live demo link.
+
 ## [0.1.0]
 
 ### Added
