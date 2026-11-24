@@ -13,9 +13,23 @@
       <a class="product" href="./">RaiseHand Lab.Q</a>
       <span class="view-name">Student</span>
     </header>
-    <section id="student-app" class="panel" aria-live="polite">
-      <h1>Student view</h1>
-      <p>Built in Sprint 1. Start with RH-01 (join with name and system number) and RH-02 (raise a doubt).</p>
+
+    <section id="join" class="panel" hidden>
+      <h1>Join the lab queue</h1>
+      <form id="join-form" class="form" novalidate>
+        <label for="name">Your name</label>
+        <input id="name" name="name" autocomplete="name" maxlength="60">
+        <label for="system">System number</label>
+        <input id="system" name="system" maxlength="20" placeholder="L3-14" autocomplete="off">
+        <p id="join-error" class="error" role="alert"></p>
+        <button type="submit">Join</button>
+      </form>
+    </section>
+
+    <section id="raise" class="panel" hidden>
+      <p class="who"><span id="who"></span> <button type="button" id="leave" class="link-button">Not you?</button></p>
+      <h1>You're in</h1>
+      <p class="muted">Raising a doubt comes next.</p>
     </section>
   </main>
 </body>

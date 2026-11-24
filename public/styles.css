@@ -11,6 +11,7 @@
   --waiting: #9a6400;
   --helping: #2457d6;
   --resolved: #1f7a45;
+  --danger: #b42318;
   --token-bg: #1e2a38;
   --token-ink: #ffc233;
   --token-label: #e6ebf0;
@@ -32,6 +33,7 @@
     --waiting: #ffc233;
     --helping: #7aa2ff;
     --resolved: #5ccf8f;
+    --danger: #ff8a80;
     --token-bg: #0b1118;
   }
 }
@@ -183,4 +185,69 @@ button,
 
 .status-resolved {
   color: var(--resolved);
+}
+
+/* The hidden attribute always wins, even on flex and grid containers. */
+[hidden] {
+  display: none !important;
+}
+
+/* Forms: RH-01 and RH-02. */
+.form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form label {
+  font-weight: 600;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form button[type="submit"] {
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+.error {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--danger);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.link-button {
+  min-height: auto;
+  padding: 0;
+  background: none;
+  color: var(--action);
+  font-weight: 400;
+  text-decoration: underline;
 }
