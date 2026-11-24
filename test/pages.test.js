@@ -39,3 +39,10 @@ test('the TA page can filter the queue by category (RH-14)', async (t) => {
   const html = await fetchText(app, '/ta.html');
   assert.match(html, /id="filter"/);
 });
+
+test("the student page has the you're-next banner (RH-15)", async (t) => {
+  const app = await startTestServer();
+  t.after(app.close);
+  const html = await fetchText(app, '/student.html');
+  assert.match(html, /id="next-banner"/);
+});

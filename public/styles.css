@@ -13,6 +13,8 @@
   --resolved: #1f7a45;
   --danger: #b42318;
   --helping-bg: #e8eefc;
+  --banner-bg: #ffc233;
+  --banner-ink: #1b2430;
   --token-bg: #1e2a38;
   --token-ink: #ffc233;
   --token-label: #e6ebf0;
@@ -475,4 +477,14 @@ select {
 
 .filter select {
   width: auto;
+}
+
+/* RH-15: you're next. */
+.banner {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius);
+  background: var(--banner-bg);
+  color: var(--banner-ink);
+  font-weight: 700;
 }

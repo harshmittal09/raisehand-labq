@@ -10,6 +10,7 @@ const CATEGORY_NAMES = {
   other: 'Other',
 };
 const POLL_MS = 3000;
+const TITLE = document.title;
 
 const $ = (id) => document.getElementById(id);
 
@@ -91,11 +92,13 @@ async function refresh() {
 function renderDoubt(doubt) {
   if (doubt.status === 'resolved') {
     store.remove(DOUBT_KEY);
+    showNext(false);
     show('resolved');
     return;
   }
   if (doubt.status === 'withdrawn') {
     store.remove(DOUBT_KEY);
+    showNext(false);
     show('raise');
     return;
   }
@@ -112,7 +115,20 @@ function renderDoubt(doubt) {
   if (helping) {
     $('status-line').textContent = 'Stay at your system.';
   }
+  showNext(doubt.status === 'waiting' && doubt.position === 1);
   show('status');
+}
+
+// RH-15: a clear alert when you reach the front of the queue.
+let wasNext = false;
+
+function showNext(isNext) {
+  $('next-banner').hidden = !isNext;
+  document.title = isNext ? `You're next – ${TITLE}` : TITLE;
+  if (isNext && !wasNext && 'vibrate' in navigator) {
+    navigator.vibrate(200);
+  }
+  wasNext = isNext;
 }
 
 // RH-01: join with name and system number.
