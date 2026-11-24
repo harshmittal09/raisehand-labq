@@ -5,6 +5,7 @@ const {
   positionOf,
   toDoubt,
 } = require('../queue');
+const { findOpenSession } = require('../sessions');
 const { newToken, parseId, sameToken } = require('../tokens');
 const { validateDoubt } = require('../validation');
 
@@ -22,7 +23,12 @@ function studentRoutes(db) {
     if (error) {
       return res.status(400).json({ error });
     }
-    const sessionId = null;
+
+    const session = findOpenSession(db, req.body.sessionCode);
+    if (!session) {
+      return res.status(404).json({ error: 'No open session has that code.' });
+    }
+    const sessionId = session.id;
 
     const existing = db
       .prepare(

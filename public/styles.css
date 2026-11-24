@@ -383,3 +383,27 @@ button.secondary {
   border-color: var(--helping);
   background: var(--helping-bg);
 }
+
+/* RH-10: lab sessions. */
+.panel + .panel {
+  margin-top: 1rem;
+}
+
+.live-session {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.live-session p {
+  margin: 0;
+}
+
+.session-code {
+  font-family: var(--font-token);
+  font-size: clamp(2.5rem, 10vw, 3.5rem);
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+}

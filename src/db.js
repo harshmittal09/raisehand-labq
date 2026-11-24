@@ -60,6 +60,7 @@ function openDatabase(file = process.env.DB_PATH || DEFAULT_DB_PATH) {
   }
   db.exec(SCHEMA);
   ensureColumn(db, 'doubts', 'token', 'TEXT');
+  ensureColumn(db, 'sessions', 'ta_token', 'TEXT');
   return db;
 }
 

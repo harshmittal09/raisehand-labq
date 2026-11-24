@@ -13,6 +13,22 @@
       <a class="product" href="./">RaiseHand Lab.Q</a>
       <span class="view-name">TA</span>
     </header>
+    <section id="session" class="panel">
+      <div id="no-session">
+        <h1>Start a lab session</h1>
+        <p class="muted">Students join with the code you share, and each session has its own queue.</p>
+        <button type="button" id="start">Start session</button>
+        <p id="session-error" class="error" role="alert"></p>
+      </div>
+      <div id="live-session" class="live-session" hidden>
+        <div>
+          <p class="muted">Session code</p>
+          <p id="session-code" class="session-code"></p>
+          <p class="muted">Students join with this code.</p>
+        </div>
+        <button type="button" id="end" class="secondary">End session</button>
+      </div>
+    </section>
     <section id="queue-panel" class="panel" aria-live="polite">
       <div class="queue-head">
         <h1 id="queue-title">Queue</h1>

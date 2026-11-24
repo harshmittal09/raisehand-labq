@@ -13,10 +13,11 @@ async function call(app, method, path, { body, headers = {} } = {}) {
 }
 
 /**
- * The lab. Until sessions exist (RH-10) there is one shared queue.
+ * The lab: a session a TA opened, with its join code and the TA's secret.
  */
 async function openLab(app) {
-  return { url: app.url, code: null, ta: {} };
+  const res = await call(app, 'POST', '/api/sessions');
+  return { code: res.body.code, ta: { 'X-TA-Token': res.body.taToken } };
 }
 
 const SAMPLE = { studentName: 'Asha', systemNo: 'L3-14', category: 'logic', description: 'My loop never ends' };

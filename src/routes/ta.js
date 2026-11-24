@@ -6,9 +6,12 @@ const {
   openQueue,
 } = require('../queue');
 const { parseId } = require('../tokens');
+const { createSession, findOpenSession, isTaFor, requireTa } = require('../sessions');
 
 /**
  * TA-side API. Owner: Harsh.
+ * From RH-10 every queue belongs to a lab session, and TA actions need the
+ * session's secret in the X-TA-Token header.
  */
 function taRoutes(db) {
   const router = express.Router();
@@ -20,6 +23,10 @@ function taRoutes(db) {
       res.status(404).json({ error: 'No doubt has that id.' });
       return null;
     }
+    if (!isTaFor(db, row, req.get('X-TA-Token'))) {
+      res.status(403).json({ error: 'Only the TA running this session can do that.' });
+      return null;
+    }
     if (!isOpen(row)) {
       res.status(409).json({ error: 'This doubt is already closed.' });
       return null;
@@ -27,9 +34,32 @@ function taRoutes(db) {
     return row;
   }
 
+  // RH-10: open a session and get a join code.
+  router.post('/sessions', (_req, res) => {
+    const { code, taToken } = createSession(db);
+    res.status(201).json({ code, taToken });
+  });
+
+  // RH-10: students check a code before joining.
+  router.get('/sessions/:code', (req, res) => {
+    const session = findOpenSession(db, req.params.code);
+    if (!session) {
+      return res.status(404).json({ error: 'No open session has that code.' });
+    }
+    return res.json({ code: session.code, status: session.status });
+  });
+
+  // RH-10: end a session so nobody can raise new doubts in it.
+  router.post('/sessions/:code/close', requireTa(db), (req, res) => {
+    db.prepare(`UPDATE sessions SET status = 'closed', closed_at = COALESCE(closed_at, ${NOW}) WHERE id = ?`).run(
+      req.labSession.id,
+    );
+    res.status(204).end();
+  });
+
   // RH-03: open doubts, oldest first.
-  router.get('/queue', (_req, res) => {
-    res.json(openQueue(db, null));
+  router.get('/queue', requireTa(db), (req, res) => {
+    res.json(openQueue(db, req.labSession.id));
   });
 
   // RH-04: mark a doubt resolved.

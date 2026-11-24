@@ -120,6 +120,7 @@ $('join-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   const name = $('name').value.trim();
   const systemNo = $('system').value.trim();
+  const code = $('code').value.trim().toUpperCase();
   const missing = [];
   if (!name) {
     missing.push('your name');
@@ -127,11 +128,21 @@ $('join-form').addEventListener('submit', async (event) => {
   if (!systemNo) {
     missing.push('your system number');
   }
+  if (!code) {
+    missing.push('the session code');
+  }
   if (missing.length > 0) {
     $('join-error').textContent = `Enter ${listOf(missing)}.`;
     return;
   }
   const student = { name, systemNo };
+  const check = await request(`/api/sessions/${encodeURIComponent(code)}`);
+  if (!check.ok) {
+    $('join-error').textContent =
+      check.status === 404 ? 'No open session has that code. Check it with your TA.' : check.data.error;
+    return;
+  }
+  student.code = code;
   $('join-error').textContent = '';
   store.set(STUDENT_KEY, student);
   await refresh();
@@ -158,7 +169,17 @@ $('raise-form').addEventListener('submit', async (event) => {
     return;
   }
   const body = { studentName: student.name, systemNo: student.systemNo, category, description };
+  body.sessionCode = student.code;
   const res = await request('/api/doubts', { method: 'POST', body });
+  if (res.status === 404) {
+    // The session ended: keep the name and system number, ask for the new code.
+    store.remove(STUDENT_KEY);
+    $('name').value = student.name;
+    $('system').value = student.systemNo;
+    $('join-error').textContent = 'That session has ended. Enter the new code from your TA.';
+    show('join');
+    return;
+  }
   if (!res.ok) {
     $('raise-error').textContent = res.data.error ?? 'Something went wrong. Try again.';
     return;

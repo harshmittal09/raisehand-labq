@@ -7,8 +7,33 @@ const CATEGORY_NAMES = {
   viva: 'Viva prep',
   other: 'Other',
 };
+const SESSION_KEY = 'raisehand.ta-session';
 
 const $ = (id) => document.getElementById(id);
+
+const store = {
+  get(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch {
+      return null;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // Storage can be blocked (private mode). The page still works until a reload.
+    }
+  },
+  remove(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // Same as above.
+    }
+  },
+};
 
 async function request(url, { method = 'GET', body, headers = {} } = {}) {
   try {
@@ -49,7 +74,8 @@ function ago(iso) {
 }
 
 function taHeaders() {
-  return {};
+  const session = store.get(SESSION_KEY);
+  return session ? { 'X-TA-Token': session.taToken } : {};
 }
 
 function renderQueue(doubts) {
@@ -88,7 +114,11 @@ async function act(id, action) {
 }
 
 async function loadQueue() {
-  const res = await request('/api/queue', { headers: taHeaders() });
+  const session = store.get(SESSION_KEY);
+  if (!session) {
+    return;
+  }
+  const res = await request(`/api/queue?session=${encodeURIComponent(session.code)}`, { headers: taHeaders() });
   if (!res.ok) {
     $('queue-error').textContent = res.data.error ?? 'Could not load the queue.';
     return;
@@ -96,6 +126,48 @@ async function loadQueue() {
   $('queue-error').textContent = '';
   renderQueue(res.data);
 }
+
+// RH-10: lab sessions with join codes.
+function renderSession() {
+  const session = store.get(SESSION_KEY);
+  $('no-session').hidden = Boolean(session);
+  $('live-session').hidden = !session;
+  $('queue-panel').hidden = !session;
+  if (session) {
+    $('session-code').textContent = session.code;
+  }
+}
+
+$('start').addEventListener('click', async () => {
+  const res = await request('/api/sessions', { method: 'POST' });
+  if (!res.ok) {
+    $('session-error').textContent = res.data.error ?? 'Could not start a session. Try again.';
+    return;
+  }
+  store.set(SESSION_KEY, { code: res.data.code, taToken: res.data.taToken });
+  $('session-error').textContent = '';
+  renderSession();
+  await loadQueue();
+});
+
+$('end').addEventListener('click', async () => {
+  const session = store.get(SESSION_KEY);
+  if (!session || !window.confirm("End this session? Students won't be able to raise new doubts in it.")) {
+    return;
+  }
+  const res = await request(`/api/sessions/${encodeURIComponent(session.code)}/close`, {
+    method: 'POST',
+    headers: taHeaders(),
+  });
+  if (!res.ok) {
+    $('queue-error').textContent = res.data.error ?? 'Could not end the session. Try again.';
+    return;
+  }
+  store.remove(SESSION_KEY);
+  renderSession();
+});
+
+renderSession();
 loadQueue();
 setInterval(() => {
   if (document.visibilityState === 'visible') {

@@ -14,6 +14,7 @@ test('the student page has the join form (RH-01)', async (t) => {
   assert.match(html, /id="join-form"/);
   assert.match(html, /id="name"/);
   assert.match(html, /id="system"/);
+  assert.match(html, /id="code"/);
 });
 
 test('the TA page has the queue (RH-03)', async (t) => {

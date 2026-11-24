@@ -32,6 +32,8 @@ npm run lint
 
 Open http://localhost:3000/student.html for the student view and http://localhost:3000/ta.html for the TA view. On Node 22 the server prints an `ExperimentalWarning` about SQLite when it starts; that's expected.
 
+Start a session in the TA view first, then join from the student view with its code.
+
 The database lives in `data/raisehand.db`, which Git ignores. Delete it to start with an empty queue.
 
 ## Deploy
