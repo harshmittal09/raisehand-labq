@@ -4,6 +4,14 @@ Notable changes, grouped by release. Each sprint ends with a release.
 
 ## [Unreleased]
 
+## [1.0.0]
+
+### Added
+
+- RH-10: TAs open lab sessions with 4-character join codes. Each session has its own queue, and TA actions need the session's secret.
+- RH-11: an end-of-session summary with doubts handled and withdrawn, the average wait and the most common category.
+- RH-12: the student page fits phone screens.
+
 ## [0.2.0]
 
 ### Added
