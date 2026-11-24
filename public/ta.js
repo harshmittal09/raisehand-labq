@@ -8,6 +8,7 @@ const CATEGORY_NAMES = {
   other: 'Other',
 };
 const SESSION_KEY = 'raisehand.ta-session';
+const FILTER_KEY = 'raisehand.ta-filter';
 
 const $ = (id) => document.getElementById(id);
 
@@ -78,10 +79,16 @@ function taHeaders() {
   return session ? { 'X-TA-Token': session.taToken } : {};
 }
 
+let lastQueue = [];
+
 function renderQueue(doubts) {
-  const shown = doubts;
+  lastQueue = doubts;
+  const filter = $('filter').value;
+  const shown = filter ? doubts.filter((doubt) => doubt.category === filter) : doubts;
   $('queue-title').textContent = doubts.length === 0 ? 'Queue' : `Queue: ${doubts.length} open`;
   $('queue-empty').hidden = shown.length > 0;
+  $('queue-empty').textContent =
+    doubts.length > 0 ? 'No doubts in this category right now.' : 'No doubts yet. They appear here as students raise them.';
   $('queue').replaceChildren(...shown.map((doubt) => queueItem(doubt, doubts.indexOf(doubt) + 1)));
 }
 
@@ -193,6 +200,13 @@ async function showSummary(session) {
   $('stat-top').textContent = stats.topCategory ? (CATEGORY_NAMES[stats.topCategory] ?? stats.topCategory) : 'None';
   $('summary').hidden = false;
 }
+
+// RH-14: filter the queue by category. The choice survives a reload.
+$('filter').value = store.get(FILTER_KEY) ?? '';
+$('filter').addEventListener('change', () => {
+  store.set(FILTER_KEY, $('filter').value);
+  renderQueue(lastQueue);
+});
 
 renderSession();
 loadQueue();

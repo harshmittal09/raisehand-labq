@@ -32,3 +32,10 @@ test('the student page is set up for phone screens (RH-12)', async (t) => {
   assert.match(html, /name="viewport" content="width=device-width, initial-scale=1"/);
   assert.match(css, /@media \(max-width: 480px\)/);
 });
+
+test('the TA page can filter the queue by category (RH-14)', async (t) => {
+  const app = await startTestServer();
+  t.after(app.close);
+  const html = await fetchText(app, '/ta.html');
+  assert.match(html, /id="filter"/);
+});

@@ -464,3 +464,15 @@ select {
     flex: 1;
   }
 }
+
+/* RH-14: category filter. */
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.filter select {
+  width: auto;
+}

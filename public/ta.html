@@ -42,6 +42,15 @@
     <section id="queue-panel" class="panel" aria-live="polite">
       <div class="queue-head">
         <h1 id="queue-title">Queue</h1>
+        <label class="filter">Show
+          <select id="filter">
+            <option value="">All categories</option>
+            <option value="compile-error">Compile error</option>
+            <option value="logic">Logic</option>
+            <option value="viva">Viva prep</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
       </div>
       <p id="queue-empty" class="muted">No doubts yet. They appear here as students raise them.</p>
       <ol id="queue" class="queue"></ol>
