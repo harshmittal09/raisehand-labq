@@ -1,0 +1,186 @@
+/* Design tokens: use these variables, not raw colours, so light and dark mode both work. */
+:root {
+  color-scheme: light dark;
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --muted: #566170;
+  --line: #d3d9e0;
+  --action: #2457d6;
+  --action-ink: #ffffff;
+  --waiting: #9a6400;
+  --helping: #2457d6;
+  --resolved: #1f7a45;
+  --token-bg: #1e2a38;
+  --token-ink: #ffc233;
+  --token-label: #e6ebf0;
+  --radius: 10px;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Signage faces, like the token boards at a bank or clinic counter. */
+  --font-token: "DIN Alternate", "Bahnschrift", "Arial Narrow", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10161d;
+    --surface: #18212b;
+    --ink: #e6ebf0;
+    --muted: #9aa6b2;
+    --line: #2a3542;
+    --action: #7aa2ff;
+    --action-ink: #0d1420;
+    --waiting: #ffc233;
+    --helping: #7aa2ff;
+    --resolved: #5ccf8f;
+    --token-bg: #0b1118;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--action);
+}
+
+:focus-visible {
+  outline: 3px solid var(--action);
+  outline-offset: 2px;
+}
+
+.page {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.product {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.view-name {
+  color: var(--muted);
+}
+
+.masthead h1 {
+  font-size: clamp(1.9rem, 6vw, 2.8rem);
+  line-height: 1.15;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.lede {
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.roles {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 480px) {
+  .roles {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 44px;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.role:hover {
+  border-color: var(--action);
+}
+
+.role-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.role-note {
+  color: var(--muted);
+}
+
+button,
+.button {
+  min-height: 44px;
+  padding: 0.6rem 1.1rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--action);
+  color: var(--action-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* The big queue position, styled like a token display board. Ready for RH-06. */
+.token {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--token-bg);
+  color: var(--token-ink);
+}
+
+.token-number {
+  font-family: var(--font-token);
+  font-size: clamp(3.5rem, 18vw, 6rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.token-label {
+  color: var(--token-label);
+}
+
+/* Doubt status colours for RH-04, RH-06 and RH-07. */
+.status-waiting {
+  color: var(--waiting);
+}
+
+.status-helping {
+  color: var(--helping);
+}
+
+.status-resolved {
+  color: var(--resolved);
+}
