@@ -61,7 +61,11 @@ function renderQueue(doubts) {
 
 function queueItem(doubt, position) {
   const item = el('li', 'queue-item');
-  const when = `Raised ${ago(doubt.createdAt)}`;
+  const helping = doubt.status === 'helping';
+  if (helping) {
+    item.classList.add('is-helping');
+  }
+  const when = helping ? `Helping now. Raised ${ago(doubt.createdAt)}` : `Raised ${ago(doubt.createdAt)}`;
   const details = el('div', 'queue-details');
   details.append(
     el('p', 'queue-who', `${doubt.studentName}, ${doubt.systemNo}`),
@@ -69,6 +73,9 @@ function queueItem(doubt, position) {
     el('p', 'queue-when', when),
   );
   const actions = el('div', 'queue-actions');
+  if (!helping) {
+    actions.append(button('Helping now', 'secondary', () => act(doubt.id, 'helping')));
+  }
   actions.append(button('Resolve', '', () => act(doubt.id, 'resolve')));
   item.append(el('span', 'queue-number', String(position)), details, actions);
   return item;

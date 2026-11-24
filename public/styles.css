@@ -12,6 +12,7 @@
   --helping: #2457d6;
   --resolved: #1f7a45;
   --danger: #b42318;
+  --helping-bg: #e8eefc;
   --token-bg: #1e2a38;
   --token-ink: #ffc233;
   --token-label: #e6ebf0;
@@ -34,6 +35,7 @@
     --helping: #7aa2ff;
     --resolved: #5ccf8f;
     --danger: #ff8a80;
+    --helping-bg: #1b2a4a;
     --token-bg: #0b1118;
   }
 }
@@ -374,4 +376,10 @@ button.secondary {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.5rem;
+}
+
+/* RH-07: the doubt the TA is walking over to. */
+.queue-item.is-helping {
+  border-color: var(--helping);
+  background: var(--helping-bg);
 }

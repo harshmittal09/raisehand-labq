@@ -101,6 +101,12 @@ function renderDoubt(doubt) {
     ahead === 0
       ? 'Nobody is ahead of you. This updates every 3 seconds.'
       : `${ahead} ${ahead === 1 ? 'person is' : 'people are'} ahead of you. This updates every 3 seconds.`;
+  const helping = doubt.status === 'helping';
+  $('position').hidden = helping;
+  $('token-label').textContent = helping ? 'The TA is on the way' : 'Your place in the queue';
+  if (helping) {
+    $('status-line').textContent = 'Stay at your system.';
+  }
   show('status');
 }
 
