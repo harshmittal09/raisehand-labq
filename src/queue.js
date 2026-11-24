@@ -33,10 +33,19 @@ function isOpen(row) {
   return row.status === 'waiting' || row.status === 'helping';
 }
 
+/** Open doubts in one queue, oldest first. */
+function openQueue(db, sessionId) {
+  return db
+    .prepare(`SELECT * FROM doubts WHERE session_id IS ? AND ${OPEN} ORDER BY id`)
+    .all(sessionId)
+    .map(toDoubt);
+}
+
 module.exports = {
   NOW,
   OPEN,
   toDoubt,
   findDoubtRow,
   isOpen,
+  openQueue,
 };

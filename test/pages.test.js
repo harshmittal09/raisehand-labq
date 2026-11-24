@@ -15,3 +15,10 @@ test('the student page has the join form (RH-01)', async (t) => {
   assert.match(html, /id="name"/);
   assert.match(html, /id="system"/);
 });
+
+test('the TA page has the queue (RH-03)', async (t) => {
+  const app = await startTestServer();
+  t.after(app.close);
+  const html = await fetchText(app, '/ta.html');
+  assert.match(html, /id="queue"/);
+});

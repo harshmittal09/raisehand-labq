@@ -33,9 +33,15 @@ function check(app, doubt) {
   return call(app, 'GET', `/api/doubts/${doubt.id}`, { headers: { 'X-Doubt-Token': doubt.token } });
 }
 
+function queue(app, lab) {
+  const path = lab.code ? `/api/queue?session=${lab.code}` : '/api/queue';
+  return call(app, 'GET', path, { headers: lab.ta });
+}
+
 module.exports = {
   call,
   openLab,
   raise,
   check,
+  queue,
 };
