@@ -1,0 +1,11 @@
+# Render blueprint for the live demo (RH-09).
+services:
+  - type: web
+    name: raisehand-labq
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true

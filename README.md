@@ -14,7 +14,7 @@ Built by a two-person Scrum team for our Agile lab, as three timeboxed micro-spr
 ## Links
 
 - Board: added once the board is set up
-- Live demo: added in Sprint 2 (RH-09)
+- Live demo: [raisehand-labq.onrender.com](https://raisehand-labq.onrender.com). It runs on a free instance, so the first visit after a quiet spell takes about a minute.
 - Backlog: [docs/backlog.md](docs/backlog.md)
 - Sprint logs: [docs/sprints](docs/sprints)
 
@@ -33,6 +33,10 @@ npm run lint
 Open http://localhost:3000/student.html for the student view and http://localhost:3000/ta.html for the TA view. On Node 22 the server prints an `ExperimentalWarning` about SQLite when it starts; that's expected.
 
 The database lives in `data/raisehand.db`, which Git ignores. Delete it to start with an empty queue.
+
+## Deploy
+
+`render.yaml` describes the live service: Node on Render's free instance in Singapore, `npm ci` to build, `npm start` to run, and a health check on `/api/health`. The current service deploys from the public repo, so after merging to `main`, redeploy it from the Render dashboard with Manual Deploy, then Deploy latest commit.
 
 ## How we work
 
