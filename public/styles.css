@@ -425,3 +425,42 @@ button.secondary {
   font-family: var(--font-token);
   font-size: 1.6rem;
 }
+
+/* RH-12: phone screens. A 16px text size stops iOS zooming in on inputs. */
+input,
+textarea,
+select {
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  .token {
+    display: flex;
+  }
+
+  .form button[type="submit"],
+  #withdraw,
+  #again {
+    width: 100%;
+  }
+
+  .queue-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .queue-actions {
+    grid-column: 1 / -1;
+  }
+
+  .queue-actions button {
+    flex: 1;
+  }
+}
