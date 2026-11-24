@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   findDoubtRow,
+  positionOf,
   toDoubt,
 } = require('../queue');
 const { newToken, parseId, sameToken } = require('../tokens');
@@ -43,6 +44,7 @@ function studentRoutes(db) {
     const row = findDoubtRow(db, Number(lastInsertRowid));
     return res.status(201).json({
       ...toDoubt(row),
+      position: positionOf(db, row),
       token,
     });
   });
@@ -58,6 +60,7 @@ function studentRoutes(db) {
     }
     return res.json({
       ...toDoubt(row),
+      position: positionOf(db, row),
     });
   });
 

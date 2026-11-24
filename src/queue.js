@@ -41,6 +41,17 @@ function openQueue(db, sessionId) {
     .map(toDoubt);
 }
 
+/** 1 for the first open doubt in its queue, 2 for the next, and so on. */
+function positionOf(db, row) {
+  if (!isOpen(row)) {
+    return null;
+  }
+  const { ahead } = db
+    .prepare(`SELECT COUNT(*) AS ahead FROM doubts WHERE session_id IS ? AND ${OPEN} AND id < ?`)
+    .get(row.session_id, row.id);
+  return ahead + 1;
+}
+
 module.exports = {
   NOW,
   OPEN,
@@ -48,4 +59,5 @@ module.exports = {
   findDoubtRow,
   isOpen,
   openQueue,
+  positionOf,
 };

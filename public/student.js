@@ -9,6 +9,7 @@ const CATEGORY_NAMES = {
   viva: 'Viva prep',
   other: 'Other',
 };
+const POLL_MS = 3000;
 
 const $ = (id) => document.getElementById(id);
 
@@ -94,6 +95,12 @@ function renderDoubt(doubt) {
     return;
   }
   $('my-doubt').textContent = `${CATEGORY_NAMES[doubt.category] ?? doubt.category}: ${doubt.description}`;
+  const ahead = doubt.position - 1;
+  $('position').textContent = String(doubt.position);
+  $('status-line').textContent =
+    ahead === 0
+      ? 'Nobody is ahead of you. This updates every 3 seconds.'
+      : `${ahead} ${ahead === 1 ? 'person is' : 'people are'} ahead of you. This updates every 3 seconds.`;
   show('status');
 }
 
@@ -157,3 +164,10 @@ $('again').addEventListener('click', () => {
 });
 
 refresh();
+
+// RH-06: keep the position fresh without reloading.
+setInterval(() => {
+  if (document.visibilityState === 'visible' && store.get(DOUBT_KEY)) {
+    refresh();
+  }
+}, POLL_MS);
