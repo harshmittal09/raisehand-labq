@@ -38,10 +38,15 @@ function queue(app, lab) {
   return call(app, 'GET', path, { headers: lab.ta });
 }
 
+function taAction(app, lab, doubt, action) {
+  return call(app, 'POST', `/api/doubts/${doubt.id}/${action}`, { headers: lab.ta });
+}
+
 module.exports = {
   call,
   openLab,
   raise,
   check,
   queue,
+  taAction,
 };

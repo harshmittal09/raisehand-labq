@@ -36,6 +36,13 @@ function el(tag, className, text) {
   return node;
 }
 
+function button(label, className, onClick) {
+  const node = el('button', className, label);
+  node.type = 'button';
+  node.addEventListener('click', onClick);
+  return node;
+}
+
 function ago(iso) {
   const minutes = Math.floor((Date.now() - Date.parse(iso)) / 60000);
   return minutes < 1 ? 'just now' : `${minutes} min ago`;
@@ -62,8 +69,15 @@ function queueItem(doubt, position) {
     el('p', 'queue-when', when),
   );
   const actions = el('div', 'queue-actions');
+  actions.append(button('Resolve', '', () => act(doubt.id, 'resolve')));
   item.append(el('span', 'queue-number', String(position)), details, actions);
   return item;
+}
+
+async function act(id, action) {
+  const res = await request(`/api/doubts/${id}/${action}`, { method: 'POST', headers: taHeaders() });
+  $('queue-error').textContent = res.ok ? '' : (res.data.error ?? "That didn't work. Try again.");
+  await loadQueue();
 }
 
 async function loadQueue() {

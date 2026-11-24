@@ -88,6 +88,11 @@ async function refresh() {
 }
 
 function renderDoubt(doubt) {
+  if (doubt.status === 'resolved') {
+    store.remove(DOUBT_KEY);
+    show('resolved');
+    return;
+  }
   $('my-doubt').textContent = `${CATEGORY_NAMES[doubt.category] ?? doubt.category}: ${doubt.description}`;
   show('status');
 }
@@ -145,6 +150,10 @@ $('raise-form').addEventListener('submit', async (event) => {
   $('count').textContent = '0';
   $('raise-error').textContent = '';
   renderDoubt(res.data);
+});
+
+$('again').addEventListener('click', () => {
+  show('raise');
 });
 
 refresh();
