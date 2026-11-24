@@ -1,6 +1,7 @@
 const path = require('node:path');
 const express = require('express');
 const { openDatabase } = require('./db');
+const statsRoutes = require('./routes/stats');
 const studentRoutes = require('./routes/student');
 const taRoutes = require('./routes/ta');
 
@@ -19,6 +20,7 @@ function createApp({ db = openDatabase() } = {}) {
 
   app.use('/api', studentRoutes(db));
   app.use('/api', taRoutes(db));
+  app.use('/api', statsRoutes(db));
 
   // Any /api path that no route handled gets a JSON 404, not an HTML page.
   app.use('/api', (_req, res) => {

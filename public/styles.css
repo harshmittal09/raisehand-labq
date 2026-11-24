@@ -407,3 +407,21 @@ button.secondary {
   letter-spacing: 0.15em;
   line-height: 1.1;
 }
+
+/* RH-11: end-of-session stats. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+
+.stats dt {
+  color: var(--muted);
+}
+
+.stats dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-token);
+  font-size: 1.6rem;
+}

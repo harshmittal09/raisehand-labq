@@ -29,6 +29,16 @@
         <button type="button" id="end" class="secondary">End session</button>
       </div>
     </section>
+    <section id="summary" class="panel" hidden aria-live="polite">
+      <h2>Session summary</h2>
+      <p id="summary-empty" class="muted" hidden>No doubts were raised in this session.</p>
+      <dl id="summary-stats" class="stats">
+        <div><dt>Doubts handled</dt><dd id="stat-handled"></dd></div>
+        <div><dt>Withdrawn</dt><dd id="stat-withdrawn"></dd></div>
+        <div><dt>Average wait</dt><dd id="stat-wait"></dd></div>
+        <div><dt>Most common</dt><dd id="stat-top"></dd></div>
+      </dl>
+    </section>
     <section id="queue-panel" class="panel" aria-live="polite">
       <div class="queue-head">
         <h1 id="queue-title">Queue</h1>

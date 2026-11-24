@@ -146,6 +146,7 @@ $('start').addEventListener('click', async () => {
   }
   store.set(SESSION_KEY, { code: res.data.code, taToken: res.data.taToken });
   $('session-error').textContent = '';
+  $('summary').hidden = true;
   renderSession();
   await loadQueue();
 });
@@ -163,9 +164,35 @@ $('end').addEventListener('click', async () => {
     $('queue-error').textContent = res.data.error ?? 'Could not end the session. Try again.';
     return;
   }
+  await showSummary(session);
   store.remove(SESSION_KEY);
   renderSession();
 });
+
+// RH-11: end-of-session stats.
+function formatWait(seconds) {
+  if (seconds === null) {
+    return 'None resolved';
+  }
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return minutes === 0 ? `${rest} s` : `${minutes} min ${rest} s`;
+}
+
+async function showSummary(session) {
+  const res = await request(`/api/sessions/${encodeURIComponent(session.code)}/stats`, { headers: taHeaders() });
+  if (!res.ok) {
+    return;
+  }
+  const stats = res.data;
+  $('summary-empty').hidden = stats.total > 0;
+  $('summary-stats').hidden = stats.total === 0;
+  $('stat-handled').textContent = String(stats.handled);
+  $('stat-withdrawn').textContent = String(stats.withdrawn);
+  $('stat-wait').textContent = formatWait(stats.averageWaitSeconds);
+  $('stat-top').textContent = stats.topCategory ? (CATEGORY_NAMES[stats.topCategory] ?? stats.topCategory) : 'None';
+  $('summary').hidden = false;
+}
 
 renderSession();
 loadQueue();
