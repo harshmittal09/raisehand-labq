@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-labelledby="t">
+  <title id="t">TA screen, low fidelity: session code, queue and end-of-session summary</title>
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <rect x="20" y="20" width="960" height="580" rx="14" fill="#f4f6f8" stroke="#8a94a3" stroke-width="2"/>
+
+  <text x="44" y="60" font-size="16" font-weight="700" fill="#1b2430">RaiseHand Lab.Q</text>
+  <text x="940" y="60" font-size="14" fill="#566170" text-anchor="end">TA</text>
+
+  <!-- Session strip (RH-10) -->
+  <rect x="44" y="80" width="912" height="70" rx="10" fill="#fff" stroke="#8a94a3"/>
+  <text x="64" y="110" font-size="12" fill="#566170">Session code (RH-10)</text>
+  <text x="64" y="136" font-size="26" font-weight="700" fill="#1b2430" letter-spacing="3">K7QP</text>
+  <text x="220" y="128" font-size="13" fill="#566170">Started 2:05 pm. Students join with this code.</text>
+  <rect x="806" y="97" width="130" height="36" rx="8" fill="#fff" stroke="#8a94a3" stroke-width="2"/>
+  <text x="871" y="120" font-size="14" font-weight="600" fill="#1b2430" text-anchor="middle">End session</text>
+
+  <!-- Queue (RH-03, RH-04, RH-07) -->
+  <text x="44" y="186" font-size="16" font-weight="700" fill="#1b2430">Queue: 3 waiting (RH-03)</text>
+
+  <g font-size="14" fill="#1b2430">
+    <rect x="44" y="200" width="620" height="78" rx="10" fill="#e8eefc" stroke="#2457d6" stroke-width="2"/>
+    <text x="64" y="232" font-weight="700">1</text>
+    <text x="92" y="232" font-weight="600">Asha, L3-14</text>
+    <text x="92" y="256" fill="#566170">Logic: My loop never ends</text>
+    <text x="400" y="232" fill="#2457d6" font-weight="600">Helping now</text>
+    <text x="400" y="256" fill="#566170">waited 6 min</text>
+    <rect x="540" y="221" width="104" height="36" rx="8" fill="#8a94a3"/>
+    <text x="592" y="244" fill="#fff" font-weight="600" text-anchor="middle">Resolve</text>
+
+    <rect x="44" y="288" width="620" height="78" rx="10" fill="#fff" stroke="#8a94a3"/>
+    <text x="64" y="320" font-weight="700">2</text>
+    <text x="92" y="320" font-weight="600">Rohan, L3-02</text>
+    <text x="92" y="344" fill="#566170">Compile error: Segfault on line 12</text>
+    <text x="400" y="344" fill="#566170">waited 4 min</text>
+    <rect x="410" y="309" width="120" height="36" rx="8" fill="#fff" stroke="#8a94a3" stroke-width="2"/>
+    <text x="470" y="332" font-weight="600" text-anchor="middle">Helping now</text>
+    <rect x="540" y="309" width="104" height="36" rx="8" fill="#8a94a3"/>
+    <text x="592" y="332" fill="#fff" font-weight="600" text-anchor="middle">Resolve</text>
+
+    <rect x="44" y="376" width="620" height="78" rx="10" fill="#fff" stroke="#8a94a3"/>
+    <text x="64" y="408" font-weight="700">3</text>
+    <text x="92" y="408" font-weight="600">Meera, L3-21</text>
+    <text x="92" y="432" fill="#566170">Viva prep: Stack vs heap?</text>
+    <text x="400" y="432" fill="#566170">waited 1 min</text>
+    <rect x="410" y="397" width="120" height="36" rx="8" fill="#fff" stroke="#8a94a3" stroke-width="2"/>
+    <text x="470" y="420" font-weight="600" text-anchor="middle">Helping now</text>
+    <rect x="540" y="397" width="104" height="36" rx="8" fill="#8a94a3"/>
+    <text x="592" y="420" fill="#fff" font-weight="600" text-anchor="middle">Resolve</text>
+  </g>
+  <text x="44" y="482" font-size="12" fill="#566170">Refreshes every 3 seconds. Oldest first; "Helping now" (RH-07) highlights the row.</text>
+
+  <!-- Summary (RH-11) -->
+  <rect x="690" y="200" width="266" height="254" rx="10" fill="#fff" stroke="#8a94a3" stroke-dasharray="6 4"/>
+  <text x="710" y="230" font-size="15" font-weight="700" fill="#1b2430">Session summary (RH-11)</text>
+  <text x="710" y="252" font-size="12" fill="#566170">Shown when the session ends</text>
+  <g font-size="14" fill="#1b2430">
+    <text x="710" y="292">Doubts handled</text><text x="936" y="292" text-anchor="end" font-weight="700">12</text>
+    <text x="710" y="324">Withdrawn</text><text x="936" y="324" text-anchor="end" font-weight="700">2</text>
+    <text x="710" y="356">Average wait</text><text x="936" y="356" text-anchor="end" font-weight="700">3 min 40 s</text>
+    <text x="710" y="388">Most common</text><text x="936" y="388" text-anchor="end" font-weight="700">Logic</text>
+  </g>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-labelledby="t">
+  <title id="t">Student screens, low fidelity: join, raise a doubt, in the queue</title>
+  <rect width="1000" height="700" fill="#ffffff"/>
+  <g fill="#1b2430" font-size="15" font-weight="600">
+    <text x="30" y="36">1. Join (RH-01)</text>
+    <text x="360" y="36">2. Raise a doubt (RH-02)</text>
+    <text x="690" y="36">3. In the queue (RH-06, RH-07, RH-08)</text>
+  </g>
+
+  <!-- Frame 1: join -->
+  <g transform="translate(30 56)">
+    <rect width="280" height="600" rx="22" fill="#f4f6f8" stroke="#8a94a3" stroke-width="2"/>
+    <text x="20" y="40" font-size="14" font-weight="700" fill="#1b2430">RaiseHand Lab.Q</text>
+    <text x="210" y="40" font-size="13" fill="#566170">Student</text>
+    <text x="20" y="100" font-size="20" font-weight="700" fill="#1b2430">Join the lab queue</text>
+    <text x="20" y="145" font-size="13" fill="#566170">Your name</text>
+    <rect x="20" y="153" width="240" height="40" rx="8" fill="#fff" stroke="#8a94a3"/>
+    <text x="32" y="178" font-size="14" fill="#9aa3ae">Asha</text>
+    <text x="20" y="225" font-size="13" fill="#566170">System number</text>
+    <rect x="20" y="233" width="240" height="40" rx="8" fill="#fff" stroke="#8a94a3"/>
+    <text x="32" y="258" font-size="14" fill="#9aa3ae">L3-14</text>
+    <rect x="20" y="300" width="240" height="46" rx="8" fill="#8a94a3"/>
+    <text x="140" y="329" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">Join</text>
+    <text x="20" y="390" font-size="12" fill="#566170">Saved in this browser, so a reload</text>
+    <text x="20" y="406" font-size="12" fill="#566170">keeps you joined.</text>
+  </g>
+
+  <!-- Frame 2: raise a doubt -->
+  <g transform="translate(360 56)">
+    <rect width="280" height="600" rx="22" fill="#f4f6f8" stroke="#8a94a3" stroke-width="2"/>
+    <text x="20" y="40" font-size="14" font-weight="700" fill="#1b2430">RaiseHand Lab.Q</text>
+    <text x="210" y="40" font-size="13" fill="#566170">Student</text>
+    <text x="20" y="90" font-size="14" fill="#566170">Asha, system L3-14</text>
+    <text x="20" y="130" font-size="13" fill="#566170">What's it about?</text>
+    <rect x="20" y="140" width="112" height="36" rx="18" fill="#fff" stroke="#8a94a3"/>
+    <text x="76" y="163" font-size="13" fill="#1b2430" text-anchor="middle">Compile error</text>
+    <rect x="140" y="140" width="64" height="36" rx="18" fill="#1b2430"/>
+    <text x="172" y="163" font-size="13" fill="#fff" text-anchor="middle">Logic</text>
+    <rect x="20" y="184" width="90" height="36" rx="18" fill="#fff" stroke="#8a94a3"/>
+    <text x="65" y="207" font-size="13" fill="#1b2430" text-anchor="middle">Viva prep</text>
+    <rect x="118" y="184" width="64" height="36" rx="18" fill="#fff" stroke="#8a94a3"/>
+    <text x="150" y="207" font-size="13" fill="#1b2430" text-anchor="middle">Other</text>
+    <text x="20" y="255" font-size="13" fill="#566170">Describe it in one line</text>
+    <rect x="20" y="263" width="240" height="80" rx="8" fill="#fff" stroke="#8a94a3"/>
+    <text x="32" y="290" font-size="14" fill="#9aa3ae">My loop never ends</text>
+    <text x="260" y="360" font-size="12" fill="#566170" text-anchor="end">18 / 140</text>
+    <rect x="20" y="378" width="240" height="46" rx="8" fill="#8a94a3"/>
+    <text x="140" y="407" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">Raise my hand</text>
+  </g>
+
+  <!-- Frame 3: in the queue -->
+  <g transform="translate(690 56)">
+    <rect width="280" height="600" rx="22" fill="#f4f6f8" stroke="#8a94a3" stroke-width="2"/>
+    <text x="20" y="40" font-size="14" font-weight="700" fill="#1b2430">RaiseHand Lab.Q</text>
+    <text x="210" y="40" font-size="13" fill="#566170">Student</text>
+    <rect x="20" y="70" width="240" height="170" rx="12" fill="#1e2a38"/>
+    <text x="140" y="180" font-size="96" font-weight="700" fill="#ffc233" text-anchor="middle">4</text>
+    <text x="140" y="218" font-size="14" fill="#e6ebf0" text-anchor="middle">Your place in the queue</text>
+    <text x="20" y="272" font-size="13" fill="#566170">3 people ahead of you. Updates every 3 s.</text>
+    <rect x="20" y="290" width="240" height="74" rx="8" fill="#fff" stroke="#8a94a3"/>
+    <text x="32" y="316" font-size="12" fill="#566170">Logic</text>
+    <text x="32" y="340" font-size="14" fill="#1b2430">My loop never ends</text>
+    <rect x="20" y="384" width="240" height="46" rx="8" fill="#fff" stroke="#8a94a3" stroke-width="2"/>
+    <text x="140" y="413" font-size="15" font-weight="600" fill="#1b2430" text-anchor="middle">Withdraw</text>
+    <rect x="20" y="460" width="240" height="56" rx="8" fill="#e8eefc" stroke="#2457d6" stroke-dasharray="5 4"/>
+    <text x="32" y="485" font-size="12" fill="#2457d6">RH-07 state, replaces the number:</text>
+    <text x="32" y="504" font-size="14" font-weight="600" fill="#2457d6">The TA is on the way</text>
+  </g>
+</svg>
