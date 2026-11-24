@@ -32,6 +32,18 @@ const SCHEMA = `
 `;
 
 /**
+ * Adds a column to an existing table when it is missing, so a database file
+ * created by an earlier version keeps working. Table and column names are
+ * constants from this file, never user input.
+ */
+function ensureColumn(db, table, column, definition) {
+  const columns = db.prepare(`PRAGMA table_info(${table})`).all();
+  if (!columns.some((existing) => existing.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
+/**
  * Opens (or creates) the SQLite database and makes sure the tables exist.
  * Uses Node's built-in SQLite module, so there is nothing extra to install.
  * Pass ':memory:' in tests for a throwaway database.
@@ -43,6 +55,7 @@ function openDatabase(file = process.env.DB_PATH || DEFAULT_DB_PATH) {
   const db = new DatabaseSync(file);
   db.exec('PRAGMA foreign_keys = ON;');
   db.exec(SCHEMA);
+  ensureColumn(db, 'doubts', 'token', 'TEXT');
   return db;
 }
 

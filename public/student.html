@@ -28,8 +28,26 @@
 
     <section id="raise" class="panel" hidden>
       <p class="who"><span id="who"></span> <button type="button" id="leave" class="link-button">Not you?</button></p>
-      <h1>You're in</h1>
-      <p class="muted">Raising a doubt comes next.</p>
+      <h1>What's your doubt?</h1>
+      <form id="raise-form" class="form" novalidate>
+        <fieldset class="chips">
+          <legend>What's it about?</legend>
+          <label class="chip"><input type="radio" name="category" value="compile-error"> Compile error</label>
+          <label class="chip"><input type="radio" name="category" value="logic"> Logic</label>
+          <label class="chip"><input type="radio" name="category" value="viva"> Viva prep</label>
+          <label class="chip"><input type="radio" name="category" value="other"> Other</label>
+        </fieldset>
+        <label for="description">Describe it in one line</label>
+        <textarea id="description" name="description" maxlength="140" rows="3"></textarea>
+        <p class="counter"><span id="count">0</span> / 140</p>
+        <p id="raise-error" class="error" role="alert"></p>
+        <button type="submit">Raise my hand</button>
+      </form>
+    </section>
+
+    <section id="status" class="panel" hidden aria-live="polite">
+      <h1>You're in the queue</h1>
+      <p id="my-doubt" class="my-doubt"></p>
     </section>
   </main>
 </body>
