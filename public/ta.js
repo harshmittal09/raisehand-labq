@@ -126,6 +126,11 @@ async function loadQueue() {
     return;
   }
   const res = await request(`/api/queue?session=${encodeURIComponent(session.code)}`, { headers: taHeaders() });
+  if (res.status === 404) {
+    // The server no longer has this session (for example, the free host restarted).
+    forgetSession('That session no longer exists on the server. Start a new one.');
+    return;
+  }
   if (!res.ok) {
     $('queue-error').textContent = res.data.error ?? 'Could not load the queue.';
     return;
@@ -135,6 +140,12 @@ async function loadQueue() {
 }
 
 // RH-10: lab sessions with join codes.
+function forgetSession(message) {
+  store.remove(SESSION_KEY);
+  renderSession();
+  $('session-error').textContent = message;
+}
+
 function renderSession() {
   const session = store.get(SESSION_KEY);
   $('no-session').hidden = Boolean(session);
@@ -167,6 +178,10 @@ $('end').addEventListener('click', async () => {
     method: 'POST',
     headers: taHeaders(),
   });
+  if (res.status === 404) {
+    forgetSession('That session had already ended on the server.');
+    return;
+  }
   if (!res.ok) {
     $('queue-error').textContent = res.data.error ?? 'Could not end the session. Try again.';
     return;
